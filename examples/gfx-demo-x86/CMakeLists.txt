@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 SET(PROJECT_NAME gfx-demo-x86)
 
+SET(tGFX_USE_COLOR_MODE 565)
+
 PROJECT(${PROJECT_NAME})
 
 find_package(X11 REQUIRED)

@@ -1,4 +1,4 @@
-#include "tGFX.h"
+#include <tGFX.h>
 
 tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode)
 {
