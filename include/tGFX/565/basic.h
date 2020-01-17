@@ -15,4 +15,10 @@ void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, 
 
 void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 
+/**
+ * draw a circle use Midpoint circle algorithm.
+ * copyright: https://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm#C
+ */
+void tGFX_draw_circle(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t r, uint16_t color);
+
 #endif

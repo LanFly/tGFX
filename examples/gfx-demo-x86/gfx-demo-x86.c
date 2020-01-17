@@ -21,6 +21,8 @@ int main()
 
   tGFX_draw_rect(canvas, 20, 20, 80, 40, 0xa25b);
 
+  tGFX_draw_circle(canvas, 30, 50, 5, 0xb1a8);
+
   gfx_open(128, 128, "tGFX demo for X86");
 
   uint8_t r, g, b;

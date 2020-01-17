@@ -33,7 +33,7 @@ void tGFX_get_pixel_RGB(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint8_t *r,
 }
 
 /**
- * draw a line use bresenham line algorithm.
+ * draw a line use bresenhams line algorithm.
  * copyright: https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
  */
 void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
@@ -70,4 +70,43 @@ void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, 
   tGFX_draw_line(canvas, x2, y1, x2, y2, color);
   tGFX_draw_line(canvas, x2, y2, x1, y2, color);
   tGFX_draw_line(canvas, x1, y2, x1, y1, color);
+}
+
+/**
+ * draw a circle use Midpoint circle algorithm.
+ * copyright: https://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm#C
+ */
+void tGFX_draw_circle(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r, uint16_t color)
+{
+  int f = 1 - r;
+  int ddF_x = 0;
+  int ddF_y = -2 * r;
+  int x = 0;
+  int y = r;
+
+  tGFX_draw_pixel(canvas, xc, yc + r, color);
+  tGFX_draw_pixel(canvas, xc, yc - r, color);
+  tGFX_draw_pixel(canvas, xc + r, yc, color);
+  tGFX_draw_pixel(canvas, xc - r, yc, color);
+
+  while (x < y)
+  {
+    if (f >= 0)
+    {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f += ddF_x + 1;
+    tGFX_draw_pixel(canvas, xc + x, yc + y, color);
+    tGFX_draw_pixel(canvas, xc - x, yc + y, color);
+    tGFX_draw_pixel(canvas, xc + x, yc - y, color);
+    tGFX_draw_pixel(canvas, xc - x, yc - y, color);
+    tGFX_draw_pixel(canvas, xc + y, yc + x, color);
+    tGFX_draw_pixel(canvas, xc - y, yc + x, color);
+    tGFX_draw_pixel(canvas, xc + y, yc - x, color);
+    tGFX_draw_pixel(canvas, xc - y, yc - x, color);
+  }
 }
