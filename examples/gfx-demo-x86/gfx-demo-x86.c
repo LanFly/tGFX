@@ -23,6 +23,9 @@ int main()
 
   tGFX_draw_circle(canvas, 30, 50, 5, 0xb1a8);
 
+  tGFX_draw_ellipse(canvas, 30, 60, 20, 10, 0x6512);
+  tGFX_draw_ellipse(canvas, 30, 60, 10, 20, 0x6512);
+
   gfx_open(128, 128, "tGFX demo for X86");
 
   uint8_t r, g, b;

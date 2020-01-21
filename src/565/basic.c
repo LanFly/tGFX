@@ -1,5 +1,8 @@
 #include <tGFX/565/basic.h>
 
+/**
+ * draw a pixel.
+ */
 void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t color)
 {
   // overflow hidden.
@@ -33,7 +36,7 @@ void tGFX_get_pixel_RGB(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint8_t *r,
 }
 
 /**
- * draw a line use bresenhams line algorithm.
+ * draw a line with bresenhams line algorithm.
  * copyright: https://rosettacode.org/wiki/Bitmap/Bresenham%27s_line_algorithm#C
  */
 void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
@@ -64,6 +67,9 @@ void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, 
   }
 }
 
+/**
+ * draw a reacangle with tGFX_draw_line func.
+ */
 void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
 {
   tGFX_draw_line(canvas, x1, y1, x2, y1, color);
@@ -73,7 +79,7 @@ void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, 
 }
 
 /**
- * draw a circle use Midpoint circle algorithm.
+ * draw a circle with Midpoint circle algorithm.
  * copyright: https://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm#C
  */
 void tGFX_draw_circle(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r, uint16_t color)
@@ -108,5 +114,81 @@ void tGFX_draw_circle(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r,
     tGFX_draw_pixel(canvas, xc - y, yc + x, color);
     tGFX_draw_pixel(canvas, xc + y, yc - x, color);
     tGFX_draw_pixel(canvas, xc - y, yc - x, color);
+  }
+}
+
+/**
+ * draw a ellipse with midpoint ellipse algorithm.
+ * copyright: https://www.geeksforgeeks.org/midpoint-ellipse-drawing-algorithm/
+ */
+void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t rx, uint16_t ry, uint16_t color)
+{
+
+  float dx, dy, d1, d2, x, y;
+  x = 0;
+  y = ry;
+
+  // Initial decision parameter of region 1
+  d1 = (ry * ry) - (rx * rx * ry) + (0.25 * rx * rx);
+  dx = 2 * ry * ry * x;
+  dy = 2 * rx * rx * y;
+
+  // For region 1
+  while (dx < dy)
+  {
+
+    // Print points based on 4-way symmetry
+    tGFX_draw_pixel(canvas, x + xc, y + yc, color);
+    tGFX_draw_pixel(canvas, -x + xc, y + yc, color);
+    tGFX_draw_pixel(canvas, x + xc, -y + yc, color);
+    tGFX_draw_pixel(canvas, -x + xc, -y + yc, color);
+
+    // Checking and updating value of
+    // decision parameter based on algorithm
+    if (d1 < 0)
+    {
+      x++;
+      dx = dx + (2 * ry * ry);
+      d1 = d1 + dx + (ry * ry);
+    }
+    else
+    {
+      x++;
+      y--;
+      dx = dx + (2 * ry * ry);
+      dy = dy - (2 * rx * rx);
+      d1 = d1 + dx - dy + (ry * ry);
+    }
+  }
+
+  // Decision parameter of region 2
+  d2 = ((ry * ry) * ((x + 0.5) * (x + 0.5))) + ((rx * rx) * ((y - 1) * (y - 1))) - (rx * rx * ry * ry);
+
+  // Plotting points of region 2
+  while (y >= 0)
+  {
+
+    // printing points based on 4-way symmetry
+    tGFX_draw_pixel(canvas, x + xc, y + yc, color);
+    tGFX_draw_pixel(canvas, -x + xc, y + yc, color);
+    tGFX_draw_pixel(canvas, x + xc, -y + yc, color);
+    tGFX_draw_pixel(canvas, -x + xc, -y + yc, color);
+
+    // Checking and updating parameter
+    // value based on algorithm
+    if (d2 > 0)
+    {
+      y--;
+      dy = dy - (2 * rx * rx);
+      d2 = d2 + (rx * rx) - dy;
+    }
+    else
+    {
+      y--;
+      x++;
+      dx = dx + (2 * ry * ry);
+      dy = dy - (2 * rx * rx);
+      d2 = d2 + dx - dy + (rx * rx);
+    }
   }
 }
