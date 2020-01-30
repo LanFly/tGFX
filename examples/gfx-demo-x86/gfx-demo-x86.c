@@ -1,6 +1,5 @@
 #include "tGFX.h"
 #include "tGFX/565/basic.h"
-#include "tGFX/tools.h"
 
 #include "gfx.h"
 
@@ -19,9 +18,14 @@ int main()
 
   tGFX_draw_line(canvas, 10, 10, 100, 30, 0x35d3);
 
-  tGFX_draw_rect(canvas, 20, 20, 80, 40, 0xa25b);
+  tGFX_draw_rect(canvas, 90, 16, 30, 20, 0xff20);
+
+  tGFX_draw_rect_radius(canvas, 12, 12, 68, 28, 14, 0xa25b);
 
   tGFX_draw_circle(canvas, 30, 50, 5, 0xb1a8);
+
+  tGFX_draw_arc_quarter(canvas, 90, 80, 30, 0x05, 0xfc00);
+  tGFX_draw_arc_quarter(canvas, 90, 80, 30, 0x0a, 0x00fc);
 
   tGFX_draw_ellipse(canvas, 30, 60, 20, 10, 0x6512);
   tGFX_draw_ellipse(canvas, 30, 60, 10, 20, 0x6512);

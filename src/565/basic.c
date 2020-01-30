@@ -1,7 +1,7 @@
 #include <tGFX/565/basic.h>
 
 /**
- * draw a pixel.
+ * draw a pixel in overflow hidden mode.
  */
 void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t color)
 {
@@ -70,12 +70,79 @@ void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, 
 /**
  * draw a reacangle with tGFX_draw_line func.
  */
-void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color)
+void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 {
-  tGFX_draw_line(canvas, x1, y1, x2, y1, color);
-  tGFX_draw_line(canvas, x2, y1, x2, y2, color);
-  tGFX_draw_line(canvas, x2, y2, x1, y2, color);
-  tGFX_draw_line(canvas, x1, y2, x1, y1, color);
+  tGFX_draw_line(canvas, x, y, x + w, y, color);
+  tGFX_draw_line(canvas, x + w, y, x + w, y + h, color);
+  tGFX_draw_line(canvas, x + w, y + h, x, y + h, color);
+  tGFX_draw_line(canvas, x, y + h, x, y, color);
+}
+
+/**
+ * draw a arc in a multiple of a quarter with Midpoint circle algorithm.
+ * copyright: https://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm#C
+ */
+void tGFX_draw_arc_quarter(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r, uint8_t angle, uint16_t color)
+{
+  int f = 1 - r;
+  int ddF_x = 0;
+  int ddF_y = -2 * r;
+  int x = 0;
+  int y = r;
+
+  if (angle & 0x01)
+  {
+    tGFX_draw_pixel(canvas, xc, yc - r, color);
+    tGFX_draw_pixel(canvas, xc + r, yc, color);
+  }
+  if (angle & 0x02)
+  {
+    tGFX_draw_pixel(canvas, xc + r, yc, color);
+    tGFX_draw_pixel(canvas, xc, yc + r, color);
+  }
+  if (angle & 0x04)
+  {
+    tGFX_draw_pixel(canvas, xc, yc + r, color);
+    tGFX_draw_pixel(canvas, xc - r, yc, color);
+  }
+  if (angle & 0x08)
+  {
+    tGFX_draw_pixel(canvas, xc - r, yc, color);
+    tGFX_draw_pixel(canvas, xc, yc - r, color);
+  }
+
+  while (x < y)
+  {
+    if (f >= 0)
+    {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f += ddF_x + 1;
+    if (angle & 0x01)
+    {
+      tGFX_draw_pixel(canvas, xc + x, yc - y, color);
+      tGFX_draw_pixel(canvas, xc + y, yc - x, color);
+    }
+    if (angle & 0x02)
+    {
+      tGFX_draw_pixel(canvas, xc + x, yc + y, color);
+      tGFX_draw_pixel(canvas, xc + y, yc + x, color);
+    }
+    if (angle & 0x04)
+    {
+      tGFX_draw_pixel(canvas, xc - x, yc + y, color);
+      tGFX_draw_pixel(canvas, xc - y, yc + x, color);
+    }
+    if (angle & 0x08)
+    {
+      tGFX_draw_pixel(canvas, xc - x, yc - y, color);
+      tGFX_draw_pixel(canvas, xc - y, yc - x, color);
+    }
+  }
 }
 
 /**
@@ -123,7 +190,6 @@ void tGFX_draw_circle(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r,
  */
 void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t rx, uint16_t ry, uint16_t color)
 {
-
   float dx, dy, d1, d2, x, y;
   x = 0;
   y = ry;
@@ -136,7 +202,6 @@ void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r
   // For region 1
   while (dx < dy)
   {
-
     // Print points based on 4-way symmetry
     tGFX_draw_pixel(canvas, x + xc, y + yc, color);
     tGFX_draw_pixel(canvas, -x + xc, y + yc, color);
@@ -167,7 +232,6 @@ void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r
   // Plotting points of region 2
   while (y >= 0)
   {
-
     // printing points based on 4-way symmetry
     tGFX_draw_pixel(canvas, x + xc, y + yc, color);
     tGFX_draw_pixel(canvas, -x + xc, y + yc, color);
@@ -191,4 +255,29 @@ void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r
       d2 = d2 + dx - dy + (rx * rx);
     }
   }
+}
+
+/**
+ * draw a rounded reacangle with tGFX_draw_line func.
+ */
+void tGFX_draw_rect_radius(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r, uint16_t color)
+{
+  if (w > h && r * 2 > h)
+  {
+    r = h / 2;
+  }
+  else if (r * 2 > w)
+  {
+    r = w / 2;
+  }
+
+  tGFX_draw_line(canvas, x + r, y, x + w - r, y, color);
+  tGFX_draw_line(canvas, x + w, y + r, x + w, y + h - r, color);
+  tGFX_draw_line(canvas, x + w - r, y + h, x + r, y + h, color);
+  tGFX_draw_line(canvas, x, y + h - r, x, y + r, color);
+
+  tGFX_draw_arc_quarter(canvas, x + r, y + r, r, 0x08, color);
+  tGFX_draw_arc_quarter(canvas, x + w - r, y + r, r, 0x01, color);
+  tGFX_draw_arc_quarter(canvas, x + w - r, y + h - r, r, 0x02, color);
+  tGFX_draw_arc_quarter(canvas, x + r, y + h - r, r, 0x04, color);
 }
