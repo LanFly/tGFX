@@ -281,3 +281,21 @@ void tGFX_draw_rect_radius(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t
   tGFX_draw_arc_quarter(canvas, x + w - r, y + h - r, r, 0x02, color);
   tGFX_draw_arc_quarter(canvas, x + r, y + h - r, r, 0x04, color);
 }
+
+/**
+ * draw a polygon with tGFX_draw_line func.
+ * @param points {x1, y1, x2, y2, ..., xn, yn}
+ */
+void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge, uint16_t color)
+{
+  uint8_t count = 0;
+  uint8_t pos = 0;
+
+  while (count < edge - 1)
+  {
+    tGFX_draw_line(canvas, points[pos], points[pos + 1], points[pos + 2], points[pos + 3], color);
+    count++;
+    pos = count * 2;
+  }
+  tGFX_draw_line(canvas, points[pos], points[pos + 1], points[0], points[1], color);
+}

@@ -44,4 +44,10 @@ void tGFX_draw_ellipse(tGFX_Canvas *canvas, uint16_t xc, uint16_t yc, uint16_t r
  */
 void tGFX_draw_rect_radius(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t r, uint16_t color);
 
+/**
+ * draw a polygon with tGFX_draw_line func.
+ * @param points {x1, y1, x2, y2, ..., xn, yn}
+ */
+void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge, uint16_t color);
+
 #endif
