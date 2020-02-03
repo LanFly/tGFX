@@ -1,9 +1,12 @@
 #include "tGFX.h"
 #include "tGFX/565/basic.h"
 
+// X11
 #include "gfx.h"
 
 #include <stdio.h>
+
+void X11Rendering(tGFX_Canvas *canvas);
 
 int main()
 {
@@ -32,30 +35,41 @@ int main()
   uint16_t arrow[] = {40, 90, 50, 105, 40, 100, 30, 105};
   tGFX_draw_polygon(canvas, arrow, 4, 0x05ca);
 
-  gfx_open(128, 128, "tGFX demo for X86");
+  printf("Enter q on the Window to quit:\n");
+  // X11 rendering
+  X11Rendering(canvas);
+
+  printf("completed!\n");
+  return 0;
+}
+
+void X11Rendering(tGFX_Canvas *canvas)
+{
+  // X11 Window
+  gfx_open(canvas->width, canvas->height, "tGFX demo for X86");
 
   uint8_t r, g, b;
-  for (size_t y = 0; y < 128; y++)
+  for (size_t y = 0; y < canvas->height; y++)
   {
-    for (size_t x = 0; x < 128; x++)
+    for (size_t x = 0; x < canvas->width; x++)
     {
       tGFX_get_pixel_RGB(canvas, x, y, &r, &g, &b);
+      // X11 draw
       gfx_color(r, g, b);
       gfx_point(x, y);
     }
   }
 
   char c;
-  while(1) {
-		// Wait for the user to press a character.
-		c = gfx_wait();
+  while (1)
+  {
+    // Wait for the user to press a character.
+    c = gfx_wait();
 
-		// Quit if it is the letter q.
-		if(c=='q') {
-			break;
-		}
-	}
-
-  printf("completed!\n");
-  return 0;
+    // Quit if it is the letter q.
+    if (c == 'q')
+    {
+      break;
+    }
+  }
 }
