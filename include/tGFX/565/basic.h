@@ -1,7 +1,7 @@
 #ifndef _tGFX_BASIC_H
 #define _tGFX_BASIC_H
 
-#include "../../tGFX.h"
+#include <tGFX.h>
 
 /**
  * draw a pixel.

@@ -1,7 +1,7 @@
 #ifndef _tGFX_TOOLS_H
 #define _tGFX_TOOLS_H
 
-#include "../tGFX.h"
+#include <tGFX.h>
 
 /**
  * simply convert 565 color to RGB color format.
