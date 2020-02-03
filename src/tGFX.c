@@ -1,17 +1,15 @@
 #include <tGFX.h>
 
-tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode)
-{
+tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode) {
   tGFX_Canvas *canvas = (tGFX_Canvas *)malloc(sizeof(tGFX_Canvas));
-  if (canvas == NULL)
-  {
+  if (canvas == NULL) {
     return NULL;
   }
   memset(canvas, 0, sizeof(tGFX_Canvas));
 
   uint32_t buffer_size = 0;
-  switch (mode)
-  {
+
+  switch (mode) {
   case tGFX_COLOR_MODE1:
     buffer_size = width * height / 8;
     break;
@@ -33,8 +31,7 @@ tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode)
   }
 
   uint8_t *buffer = (uint8_t *)malloc(buffer_size);
-  if (buffer == NULL)
-  {
+  if (buffer == NULL) {
     free(canvas);
     return NULL;
   }

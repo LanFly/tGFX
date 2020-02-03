@@ -8,8 +8,7 @@
 
 void X11Rendering(tGFX_Canvas *canvas);
 
-int main()
-{
+int main() {
   // use 565 color canvas.
   tGFX_Canvas *canvas = tGFX_create_canvas(128, 128, tGFX_COLOR_MODE565);
 
@@ -43,16 +42,13 @@ int main()
   return 0;
 }
 
-void X11Rendering(tGFX_Canvas *canvas)
-{
+void X11Rendering(tGFX_Canvas *canvas) {
   // X11 Window
   gfx_open(canvas->width, canvas->height, "tGFX demo for X86");
 
   uint8_t r, g, b;
-  for (size_t y = 0; y < canvas->height; y++)
-  {
-    for (size_t x = 0; x < canvas->width; x++)
-    {
+  for (size_t y = 0; y < canvas->height; y++) {
+    for (size_t x = 0; x < canvas->width; x++) {
       tGFX_get_pixel_RGB(canvas, x, y, &r, &g, &b);
       // X11 draw
       gfx_color(r, g, b);
@@ -61,14 +57,12 @@ void X11Rendering(tGFX_Canvas *canvas)
   }
 
   char c;
-  while (1)
-  {
+  while (1) {
     // Wait for the user to press a character.
     c = gfx_wait();
 
     // Quit if it is the letter q.
-    if (c == 'q')
-    {
+    if (c == 'q') {
       break;
     }
   }
