@@ -20,7 +20,7 @@ void tGFX_draw_line(tGFX_Canvas *canvas, uint16_t x1, uint16_t y1, uint16_t x2,
                     uint16_t y2, uint16_t color);
 
 /**
- * draw a reacangle with tGFX_draw_line func.
+ * draw a rectangle with tGFX_draw_line func.
  */
 void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
                     uint16_t h, uint16_t color);
