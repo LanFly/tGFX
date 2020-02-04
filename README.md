@@ -4,7 +4,9 @@
 
 ## Document
 
-http://timor.tech/project/tGFX.html
+中文: http://timor.tech/project/tGFX.html
+
+English: http://timor.tech/project/tGFX-en.html
 
 ## Issues
 
@@ -13,6 +15,12 @@ https://github.com/LanFly/tGFX/issues
 ## Test
 
 There are no test cases now. But I will write it as soon as possible.
+
+## Examples
+
+[gfx-demo-x86](examples/gfx-demo-x86): This is tGFX demo for x86 on MacOSX or Linux using X11.
+
+more [examples](examples/) are under development.
 
 ## Features
 
@@ -57,7 +65,7 @@ There are **2 parts of source code** that should be compiled into your program.
 
 And don't forget to set the include path to `/path/to/tGFX/include`.
 
-## Build with CMake
+## How to build with CMake
 
 reference: [examples/gfx-demo-x86/CMakeLists.txt](examples/gfx-demo-x86/CMakeLists.txt)
 
@@ -82,3 +90,8 @@ tGFX provides a demo of using X11 to debug drawings code on MacOSX. See [example
 Any kind of contribution is welcome, such as new features, improvement, bug fix, document, translations, examples.
 
 tGFX is designed to be lightweight, fast, simple and independent. So we hope the code to be clean and friendly to read.
+
+Here are a few things to follow:
+
+- Code Style
+please run `./scripts/run-clang-format.sh` before committing your PR.
