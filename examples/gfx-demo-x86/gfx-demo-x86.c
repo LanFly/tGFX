@@ -18,6 +18,8 @@ int main() {
 
   tGFX_draw_rect(canvas, 90, 16, 30, 20, 0xff20);
 
+  tGFX_fill_rect(canvas, 75, 70, 30, 20, 0xff20);
+
   tGFX_draw_rect_radius(canvas, 12, 12, 68, 28, 14, 0xa25b);
 
   tGFX_draw_circle(canvas, 30, 50, 5, 0xb1a8);

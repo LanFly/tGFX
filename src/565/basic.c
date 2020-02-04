@@ -73,6 +73,16 @@ void tGFX_draw_rect(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
 }
 
 /**
+ * draw a filled rectangle with tGFX_draw_line func.
+ */
+void tGFX_fill_rect(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
+                    uint16_t h, uint16_t color) {
+  for (uint16_t height = 0; height < h; height++) {
+    tGFX_draw_line(canvas, x, y + height, x + w, y + height, color);
+  }
+}
+
+/**
  * draw a arc in a multiple of a quarter with Midpoint circle algorithm.
  * copyright: https://rosettacode.org/wiki/Bitmap/Midpoint_circle_algorithm#C
  */
