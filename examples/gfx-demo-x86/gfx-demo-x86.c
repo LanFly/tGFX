@@ -1,6 +1,9 @@
 #include "tGFX.h"
 #include "tGFX/565/basic.h"
 
+#include "tGFX/565/font.h"
+#include "tGFX/font/5x7.h"
+
 // X11
 #include "gfx.h"
 
@@ -35,6 +38,8 @@ int main() {
 
   uint16_t arrow[] = {40, 90, 50, 105, 40, 100, 30, 105};
   tGFX_draw_polygon(canvas, arrow, 4, 0x05ca);
+
+  tGFX_draw_char(canvas, 0, 0, '\\', &FONT_5X7, 0x00);
 
   printf("Enter q on the Window to quit:\n");
   // X11 rendering
