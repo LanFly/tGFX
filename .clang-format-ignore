@@ -1,0 +1,2 @@
+# ignore cmake build dir
+examples/*/build
