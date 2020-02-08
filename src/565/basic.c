@@ -284,17 +284,35 @@ void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge,
 }
 
 /**
- * draw a bitmap with tGFX_draw_pixel func.
+ * draw a bitmap in vertical order with tGFX_draw_pixel func.
  */
 void tGFX_draw_bitmap_v(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
                         uint16_t h, uint8_t *bitmap, uint16_t color) {
-  uint16_t cx, cy, hc, byte;
-  hc = h / 8;
-  for (uint16_t width = 0; width < w; width++) {
-    for (uint16_t height = 0; height < h; height++) {
-      byte = bitmap[width * hc + height / 8];
-      if (byte >> (7 - height % 8) & 0x01) {
-        tGFX_draw_pixel(canvas, x + width, y + height, color);
+  uint16_t cx, cy, bytes_per_col, byte;
+  bytes_per_col = h / 8;
+  for (cx = 0; cx < w; cx++) {
+    for (cy = 0; cy < h; cy++) {
+      byte = bitmap[cx * bytes_per_col + cy / 8];
+      if (byte >> (7 - cy % 8) & 0x01) {
+        tGFX_draw_pixel(canvas, x + cx, y + cy, color);
+      }
+    }
+  }
+}
+
+/**
+ * draw a bitmap in horizontal order with tGFX_draw_pixel func.
+ * @param w w must be a multiple of 8
+ */
+void tGFX_draw_bitmap(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
+                      uint16_t h, uint8_t *bitmap, uint16_t color) {
+  uint16_t cx, cy, bytes_per_row, byte;
+  bytes_per_row = w / 8;
+  for (cy = 0; cy < h; cy++) {
+    for (cx = 0; cx < w; cx++) {
+      byte = bitmap[cy * bytes_per_row + cx / 8];
+      if (byte >> (7 - cx % 8) & 0x01) {
+        tGFX_draw_pixel(canvas, x + cx, y + cy, color);
       }
     }
   }

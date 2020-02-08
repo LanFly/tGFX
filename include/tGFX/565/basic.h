@@ -65,7 +65,18 @@ void tGFX_draw_rect_radius(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
 void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge,
                        uint16_t color);
 
+/**
+ * draw a bitmap in vertical order with tGFX_draw_pixel func.
+ * @param h h must be a multiple of 8
+ */
 void tGFX_draw_bitmap_v(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
                         uint16_t h, uint8_t *bitmap, uint16_t color);
+
+/**
+ * draw a bitmap in horizontal order with tGFX_draw_pixel func.
+ * @param w w must be a multiple of 8
+ */
+void tGFX_draw_bitmap(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
+                      uint16_t h, uint8_t *bitmap, uint16_t color);
 
 #endif
