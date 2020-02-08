@@ -1,10 +1,12 @@
 # tGFX
 
+![./preview.png](./preview.png)
+
 **a tiny gfx library for tft/lcd/oled screen. Platform independent. etc.. C51, STM32, Arduino, Linux, Windows, MacOSX.**
 
 ## Document
 
-中文: http://timor.tech/project/tGFX.html
+中文文档: http://timor.tech/project/tGFX.html
 
 English: http://timor.tech/project/tGFX-en.html
 
@@ -26,6 +28,7 @@ more [examples](examples/) are under development.
 
 - Simple and light weight (**This is important**)
 - Free and Open Source
+- Font support
 - Document support
 - Cross platform
 - No dependence
@@ -33,7 +36,19 @@ more [examples](examples/) are under development.
 - Support real-time rendering (No memory mode)
 - Monochrome, 565, RGB, RGBA color support (under development)
 
-## How to use
+## How to use Font
+
+```c
+#include "tGFX/565/font.h"
+// use 5*8 bitmap font. Font Name: FONT_5X8
+#include "tGFX/font/5x8.h"
+
+tGFX_draw_text(canvas, 10, 110, "Hello tGFX!\n...", 16, &FONT_5X8, 0xffff);
+```
+
+![./preview/font-5x7.png](./preview/font-5x7.png)
+
+## How to start
 
 choose a color mode to use then include it.
 
@@ -95,3 +110,11 @@ Here are a few things to follow:
 
 - Code Style
 please run `./scripts/run-clang-format.sh` before committing your PR.
+
+## Font List
+
+1. FONT_5X8
+
+![./preview/font-5x7.png](./preview/font-5x7.png)
+
+more font under development
