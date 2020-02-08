@@ -1,11 +1,11 @@
-#ifndef _tGFX_FONT_5X7_H
-#define _tGFX_FONT_5X7_H
+#ifndef _tGFX_FONT_5X8_H
+#define _tGFX_FONT_5X8_H
 
 #include <tGFX/font/font.h>
 
 #include <stdint.h>
 
-static const char name[] = "font 5*7";
+static const char name[] = "font 5*8";
 
 static const char lookup[] = {
     ' ', '!', '"', '#', '$',  '%', '&', '\'', '(', ')', '*', '+', ',', '-',
@@ -113,6 +113,7 @@ static const uint8_t data[] = {
     0x00, 0x82, 0x6C, 0x10, 0x00, // }
 };
 
-tGFX_BITMAP_FONT FONT_5X7 = {name, 5, 7, 94, lookup, data};
+tGFX_BITMAP_FONT FONT_5X8 = {name, tGFX_BITMAP_FONT_ORDER_V, 5, 8, 94, lookup,
+                             data};
 
 #endif
