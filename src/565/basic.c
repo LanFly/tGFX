@@ -282,3 +282,20 @@ void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge,
   tGFX_draw_line(canvas, points[pos], points[pos + 1], points[0], points[1],
                  color);
 }
+
+/**
+ * draw a bitmap with tGFX_draw_pixel func.
+ */
+void tGFX_draw_bitmap_v(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
+                        uint16_t h, uint8_t *bitmap, uint16_t color) {
+  uint16_t cx, cy, hc, byte;
+  hc = h / 8;
+  for (uint16_t width = 0; width < w; width++) {
+    for (uint16_t height = 0; height < h; height++) {
+      byte = bitmap[width * hc + height / 8];
+      if (byte >> (7 - height % 8) & 0x01) {
+        tGFX_draw_pixel(canvas, x + width, y + height, color);
+      }
+    }
+  }
+}

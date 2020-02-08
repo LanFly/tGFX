@@ -39,7 +39,10 @@ int main() {
   uint16_t arrow[] = {40, 90, 50, 105, 40, 100, 30, 105};
   tGFX_draw_polygon(canvas, arrow, 4, 0x05ca);
 
-  tGFX_draw_char(canvas, 0, 0, '\\', &FONT_5X7, 0x00);
+  tGFX_draw_char(canvas, 0, 0, 'A', &FONT_5X7, 0xffff);
+
+  uint8_t vertical_bitmap[] = {0xFE, 0x04, 0x18, 0x04, 0xFE}; // W
+  tGFX_draw_bitmap_v(canvas, 10, 100, 5, 8, vertical_bitmap, 0xffff);
 
   printf("Enter q on the Window to quit:\n");
   // X11 rendering

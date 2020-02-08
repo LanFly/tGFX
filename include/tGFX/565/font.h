@@ -2,6 +2,7 @@
 #define _tGFX_FONT_H
 
 #include <tGFX.h>
+#include <tGFX/565/basic.h>
 #include <tGFX/font/font.h>
 
 #include <stdint.h>
