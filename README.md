@@ -6,9 +6,9 @@
 
 ## Document
 
-中文文档: http://timor.tech/project/tGFX.html
+中文文档: http://timor.tech/project/tGFX
 
-English: http://timor.tech/project/tGFX-en.html
+English: http://timor.tech/project/tGFX/en
 
 ## Issues
 
