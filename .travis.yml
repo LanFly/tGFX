@@ -9,5 +9,5 @@ before_install:
   - sudo apt-get -y install xorg openbox
 
 script:
-  - scripts/run-clang-format.sh
+  - clang-format --version && scripts/run-clang-format.sh
   - scripts/build-x11-example.sh
