@@ -6,8 +6,8 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-get -y install xorg openbox
+  - sudo apt-get -y install xorg openbox clang-format-9
 
 script:
-  - clang-format --version && scripts/run-clang-format.sh
+  - scripts/run-clang-format.sh
   - scripts/build-x11-example.sh
