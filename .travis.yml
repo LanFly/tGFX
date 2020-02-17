@@ -11,8 +11,9 @@ addons:
       - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
 
 before_install:
+  - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
   - sudo apt-get -q update
-  - sudo apt-get -y install xorg openbox clang-format
+  - sudo apt-get -y install xorg openbox clang-format-10
 
 script:
   - scripts/run-clang-format.sh
