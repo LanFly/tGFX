@@ -5,8 +5,14 @@ compiler:
   - clang
   - gcc
 
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+
 before_install:
-  - sudo apt-get -y install xorg openbox clang-format-11
+  - sudo apt-get -q update
+  - sudo apt-get -y install xorg openbox clang-format
 
 script:
   - scripts/run-clang-format.sh
