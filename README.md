@@ -1,4 +1,4 @@
-# tGFX
+# tGFX [![Build Status](https://travis-ci.com/LanFly/tGFX.svg?branch=master)](https://travis-ci.com/LanFly/tGFX)
 
 ![./preview.png](./preview.png)
 
