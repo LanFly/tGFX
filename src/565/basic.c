@@ -3,6 +3,7 @@
 /**
  * draw a pixel in overflow hidden mode.
  */
+#ifndef tGFX_USE_REAL_TIME
 void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
                      uint16_t color) {
   // overflow hidden.
@@ -13,7 +14,9 @@ void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
   canvas->buffer[pos] = color >> 8;
   canvas->buffer[pos + 1] = color;
 }
+#endif
 
+#ifndef tGFX_USE_REAL_TIME
 void tGFX_get_pixel_RGB(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint8_t *r,
                         uint8_t *g, uint8_t *b) {
   uint16_t pixel;
@@ -32,6 +35,7 @@ void tGFX_get_pixel_RGB(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint8_t *r,
   *g = (pixel >> 5 & 0x3F) << 2;
   *b = (pixel & 0x1F) << 3;
 }
+#endif
 
 /**
  * draw a line with bresenhams line algorithm.

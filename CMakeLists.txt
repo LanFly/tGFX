@@ -14,7 +14,7 @@ aux_source_directory(src/${_tGFX_COLOR_MODE} tGFXSRCS)
 
 list(APPEND tGFXSRCS src/tGFX.c)
 
-if(NOT DEFINED tGFX_NO_TOOLS)
+if(DEFINED tGFX_USE_TOOLS)
   list(APPEND tGFXSRCS src/tools.c)
 endif()
 

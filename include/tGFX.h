@@ -17,9 +17,16 @@ typedef struct {
   uint16_t width;
   uint16_t height;
   uint8_t mode;
+#ifndef tGFX_USE_REAL_TIME
   uint8_t *buffer;
+#endif
 } tGFX_Canvas;
 
+#ifndef tGFX_USE_REAL_TIME
 tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode);
+#else
+uint8_t tGFX_init_canvas(tGFX_Canvas *canvas, uint16_t width, uint16_t height,
+                         uint8_t mode);
+#endif
 
 #endif

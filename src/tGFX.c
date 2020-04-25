@@ -1,5 +1,6 @@
 #include <tGFX.h>
 
+#ifndef tGFX_USE_REAL_TIME
 tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode) {
   tGFX_Canvas *canvas = (tGFX_Canvas *)malloc(sizeof(tGFX_Canvas));
   if (canvas == NULL) {
@@ -44,3 +45,12 @@ tGFX_Canvas *tGFX_create_canvas(uint16_t width, uint16_t height, uint8_t mode) {
 
   return canvas;
 }
+#else
+uint8_t tGFX_init_canvas(tGFX_Canvas *canvas, uint16_t width, uint16_t height,
+                         uint8_t mode) {
+  canvas->width = width;
+  canvas->height = height;
+  canvas->mode = mode;
+  return 0;
+}
+#endif
