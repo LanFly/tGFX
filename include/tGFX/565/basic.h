@@ -6,11 +6,18 @@
 /**
  * draw a pixel.
  */
+#ifndef tGFX_USE_REAL_TIME
 void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
                      uint16_t color);
+#else
+extern void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
+                            uint16_t color);
+#endif
 
+#ifndef tGFX_USE_REAL_TIME
 void tGFX_get_pixel_RGB(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint8_t *r,
                         uint8_t *g, uint8_t *b);
+#endif
 
 /**
  * draw a line with bresenham line algorithm.
