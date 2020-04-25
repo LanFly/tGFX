@@ -33,7 +33,7 @@ more [examples](examples/) are under development.
 - Cross platform
 - No dependence
 - Support canvas rendering
-- Support real-time rendering (No memory mode)
+- Support real-time rendering (No canvas mode)
 - Monochrome, 565, RGB, RGBA color support (under development)
 
 ## How to use Font
@@ -69,6 +69,50 @@ int main()
 }
 ```
 
+## Real-Time mode (No canvas mode)
+
+Use macro `tGFX_USE_REAL_TIME` to indicate that you want to use Real-Time mode.
+
+CMakeLists.txt
+
+```cmake
+# using real-time drawing mode
+add_compile_definitions(tGFX_USE_REAL_TIME)
+```
+
+example:
+
+```c
+#include "tGFX.h"
+#include "tGFX/565/basic.h"
+
+// TGFX will call this function in real time.
+void tGFX_draw_pixel(tGFX_Canvas *canvas, uint16_t x, uint16_t y,
+                     uint16_t color) {
+  // overflow hidden.
+  if (x > canvas->width || y > canvas->height) {
+    return;
+  }
+  // you should drawing pixel(color) on position(x, y) here
+}
+
+int main()
+{
+  // use 565 color canvas.
+  tGFX_Canvas ncanvas;
+  // ref ncanvas
+  tGFX_Canvas *canvas = &ncanvas;
+  // use tGFX_init_canvas replace tGFX_create_canvas
+  tGFX_init_canvas(canvas, 128, 128, tGFX_COLOR_MODE565);
+
+  tGFX_draw_line(canvas, 10, 10, 100, 30, 0x35d3);
+
+  return 0;
+}
+```
+
+reference: [examples/gfx-real-time-demo-x86/](examples/gfx-real-time-demo-x86/)
+
 ## How to build
 
 We recommend using CMake to build your program. But you can still compile it manually.
@@ -90,8 +134,8 @@ CMake Options:
 description: which color mode to use. Only one color mode can be used at the same time by default.
 default value: 565
 
-- tGFX_NO_TOOLS
-description: whether to exclude tools source.
+- tGFX_USE_TOOLS
+description: whether to include tools source file.
 default value: false
 
 ## How to develop and debug embedded program
