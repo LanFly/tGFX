@@ -77,13 +77,20 @@ void tGFX_draw_polygon(tGFX_Canvas *canvas, uint16_t *points, uint8_t edge,
  * @param h h must be a multiple of 8
  */
 void tGFX_draw_bitmap_v(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
-                        uint16_t h, uint8_t *bitmap, uint16_t color);
+                        uint16_t h, const uint8_t *bitmap, uint16_t color);
 
 /**
  * draw a bitmap in horizontal order with tGFX_draw_pixel func.
  * @param w w must be a multiple of 8
  */
 void tGFX_draw_bitmap(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
-                      uint16_t h, uint8_t *bitmap, uint16_t color);
+                      uint16_t h, const uint8_t *bitmap, uint16_t color);
 
+/**
+ * draw a image in horizontal order with tGFX_draw_pixel func.
+ * @param buffer image data in horizontal order. One pixel takes two bytes with
+ * 565 format.
+ */
+void tGFX_draw_image(tGFX_Canvas *canvas, uint16_t x, uint16_t y, uint16_t w,
+                     uint16_t h, const uint8_t *buffer);
 #endif

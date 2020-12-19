@@ -9,11 +9,13 @@
 
 #include <stdio.h>
 
+extern const unsigned char logo[];
+
 void X11Rendering(tGFX_Canvas *canvas);
 
 int main() {
   // use 565 color canvas.
-  tGFX_Canvas *canvas = tGFX_create_canvas(128, 128, tGFX_COLOR_MODE565);
+  tGFX_Canvas *canvas = tGFX_create_canvas(256, 128, tGFX_COLOR_MODE565);
 
   tGFX_draw_pixel(canvas, 63, 63, 0xffff);
 
@@ -41,11 +43,13 @@ int main() {
 
   tGFX_draw_char(canvas, 0, 0, 'A', &FONT_5X8, 0xffff);
 
-  tGFX_draw_text(canvas, 10, 110, "Hello tGFX!\n...", 16, &FONT_5X8, 0xffff);
-
   uint8_t vertical_bitmap[] = {0xFE, 0x04, 0x18, 0x04, 0xFE}; // W
   tGFX_draw_bitmap_v(canvas, 10, 100, 5, 8, vertical_bitmap, 0xffff);
   tGFX_draw_bitmap(canvas, 18, 100, 8, 5, vertical_bitmap, 0xffff);
+
+  tGFX_draw_image(canvas, 160, 16, 64, 64, logo);
+  tGFX_draw_text(canvas, 162, 84, "Hello tGFX!\n    ...", 20, &FONT_5X8,
+                 0xffff);
 
   printf("Enter q on the Window to quit:\n");
   // X11 rendering
